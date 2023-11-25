@@ -1,3 +1,8 @@
+package Sections;
+
+import Utils.Logger;
+import Utils.SectionName;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;

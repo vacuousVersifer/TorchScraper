@@ -1,3 +1,8 @@
+import Memory.DocumentManager;
+import Sections.Assessor;
+import Utils.Logger;
+import Utils.SectionName;
+
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Scanner;
@@ -24,7 +29,7 @@ public class Main {
 
         if (askDev()) {
             // Do dev stuff
-            Memory mem = new Memory();
+            DocumentManager mem = new DocumentManager();
             mem.create();
         } else {
             Assessor assessor = new Assessor();

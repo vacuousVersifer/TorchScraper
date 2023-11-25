@@ -1,3 +1,8 @@
+package Sections;
+
+import Utils.Logger;
+import Utils.SectionName;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

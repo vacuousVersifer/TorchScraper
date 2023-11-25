@@ -1,3 +1,5 @@
+package Utils;
+
 public enum SectionName {
     PROGRAM("PROGRAM", 0),
     ASSESSOR("ASSESSOR", 1),

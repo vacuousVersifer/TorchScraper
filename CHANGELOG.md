@@ -6,13 +6,16 @@
 
 ## v1.0.0 *The Basic Edition*
 
-- [v1.0.0] Created November 24 2023
-- [v1.1.0] Added Title Card (#3)
-- [v1.1.1] Minor Problem Fixes
-- [v1.1.2] Add Dev Route Picker
-- [v1.2.0] Add Memory Class
+- [v1.0.0] Created 24 November 2023
+- [v1.1.0] Added Title Card (#3) (25 Nov 23)
+  - [v1.1.1] Minor Problem Fixes (25 Nov 23)
+  - [v1.1.2] Add Dev Route Picker (25 Nov 23)
+- [v1.2.0] Add Memory Pacakge (25 Nov 23)
+  - [v1.2.1] Organize Classes (25 Nov 23)
 
 ## v2.0.0 *The Usable Edition*
+
+- The Future!!!
 
 ## v3.0.0 *The Advanced Edition*
 

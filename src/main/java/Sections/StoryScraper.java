@@ -1,3 +1,9 @@
+package Sections;
+
+import Utils.Logger;
+import Utils.SectionName;
+import Utils.Unescaper;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;

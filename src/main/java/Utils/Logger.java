@@ -1,3 +1,5 @@
+package Utils;
+
 public class Logger {
     public static void log(SectionName section, String message) {
         System.out.println(construct(section, message));

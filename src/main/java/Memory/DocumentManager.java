@@ -1,3 +1,5 @@
+package Memory;
+
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.output.Format;
@@ -7,12 +9,12 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class Memory {
+public class DocumentManager {
     private final String filePath = "memory.torch";
     private final File file = new File(filePath);
     private final XMLOutputter outputter = new XMLOutputter();
 
-    public Memory() {
+    public DocumentManager() {
         outputter.setFormat(Format.getPrettyFormat());
     }
 
