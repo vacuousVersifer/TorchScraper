@@ -39,7 +39,7 @@ public class Assessor {
         retrieveStaff = askStaff();
         if (retrieveStaff) {
             retrieveCookies = askCookies();
-            retrieveStories = false;
+            retrieveStories = true;
         } else {
             retrieveStories = askStories();
             if (retrieveStories) {
