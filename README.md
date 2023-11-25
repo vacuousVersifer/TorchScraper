@@ -6,7 +6,7 @@
 
 This project is a simple web scraper to extract information about stories
 posted to [The Torch](https://shsthetorch.com/), a publication by the students of
-[Wichita High School South](https://usd259.org/south), a part of USD259.
+[Wichita High School South](https://www.usd259.org/south), a part of USD259.
 
 This program impersonates a staff of the Torch using their cookies for login.
 It then scrapes a list of current staff and the stories they have written,
