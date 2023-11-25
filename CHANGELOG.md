@@ -10,7 +10,7 @@
 
 ## v2.0.0 *The Usable Edition*
 
-- The Future!!!
+- Added Title Card
 
 ## v3.0.0 *The Advanced Edition*
 
