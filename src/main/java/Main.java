@@ -24,6 +24,8 @@ public class Main {
 
         if (askDev()) {
             // Do dev stuff
+            Memory mem = new Memory();
+            mem.create();
         } else {
             Assessor assessor = new Assessor();
             assessor.run();

@@ -10,6 +10,7 @@
 - [v1.1.0] Added Title Card (#3)
 - [v1.1.1] Minor Problem Fixes
 - [v1.1.2] Add Dev Route Picker
+- [v1.2.0] Add Memory Class
 
 ## v2.0.0 *The Usable Edition*
 
