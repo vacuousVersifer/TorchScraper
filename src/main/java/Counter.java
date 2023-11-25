@@ -39,9 +39,6 @@ public record Counter(ArrayList<String> staffs, ArrayList<String> stories) {
     private void printResults() {
         Logger.log(SectionName.COUNTER_PRINT, "Begin");
         String[] headings = new String[]{"Name", "08/23", "09/23", "10/23", "11/23", "12/23", "01/24", "02/24", "03/24", "04/24", "05/24", "Total:"};
-//        String[] headings = new String[]{"Name", "08/21", "09/21", "10/21", "11/21", "12/21", "01/22", "02/22", "03/22", "04/22", "05/22"};
-//        String[] headings = new String[]{"Name", "08/20", "09/20", "10/20", "11/20", "12/20", "01/21", "02/21", "03/21", "04/21", "05/21"};
-//        String[] headings = new String[]{"Name", "08/19", "09/19", "10/19", "11/19", "12/19", "01/20", "02/20", "03/20", "04/20", "05/20"};
 
         staffs.add("Total:");
         HashMap<String, Integer> monthTally = new HashMap<>();
@@ -60,9 +57,6 @@ public record Counter(ArrayList<String> staffs, ArrayList<String> stories) {
                 HashMap<String, Integer> staffStories = tally.get(staffName);
 
                 StringBuilder row = new StringBuilder();
-
-//            String name = staffName + "\t";
-//            row.append(name);
 
                 int count = 0;
                 for (String date : headings) {

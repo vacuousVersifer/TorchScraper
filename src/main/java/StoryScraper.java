@@ -105,12 +105,12 @@ public class StoryScraper {
 
             connection.connect();
 
-            String precon = String.valueOf(connection.getURL());
+            String preconnection = String.valueOf(connection.getURL());
             InputStream next = connection.getInputStream();
 
-            String postcon = String.valueOf(connection.getURL());
+            String postconnection = String.valueOf(connection.getURL());
 
-            if (!Objects.equals(precon, postcon)) {
+            if (!Objects.equals(preconnection, postconnection)) {
                 return responseBody;
             } else {
                 Scanner nextScanner = new Scanner(next);

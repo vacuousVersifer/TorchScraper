@@ -10,7 +10,8 @@
 
 ## v2.0.0 *The Usable Edition*
 
-- Added Title Card
+- Added Title Card (#3)
+- Minor Problem Fixes
 
 ## v3.0.0 *The Advanced Edition*
 

@@ -19,9 +19,8 @@ public class Assessor {
     private final String cookieFilePath = "cookies.txt";
     private final File cookieFile = new File(cookieFilePath);
 
-    int startID, endID;
-
-    Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner = new Scanner(System.in);
+    private int startID, endID;
 
     public Assessor() throws IOException {
         Logger.log(SectionName.CONSTRUCTOR, "Begin Construction");
