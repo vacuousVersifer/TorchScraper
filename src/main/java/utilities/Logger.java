@@ -1,4 +1,10 @@
+package utilities;
+
+import java.util.Scanner;
+
 public class Logger {
+    private static final Scanner scanner = new Scanner(System.in);
+
     public static void log(SectionName section, String message) {
         System.out.println(construct(section, message));
     }
@@ -9,6 +15,36 @@ public class Logger {
         } else {
             System.out.print(construct(section, message));
         }
+    }
+
+
+    public static Boolean askYesOrNo(SectionName section, String question) {
+        log(section, question + " (Y/N): ", false);
+        String response = scanner.nextLine();
+        if (response.equals("Y")) {
+            return true;
+        } else if (response.equals("N")) {
+            return false;
+        } else {
+            Logger.log(section, "Invalid response. Lets try again!");
+            return askYesOrNo(section, question);
+        }
+    }
+
+    public static int askNumber(SectionName section, String question) {
+        log(section, question + " (Enter a number): ", false);
+        String response = scanner.nextLine();
+        try {
+            return Integer.parseInt(response);
+        } catch (NumberFormatException e) {
+            Logger.log(section, "Invalid response. Lets try again!");
+            return askNumber(section, question);
+        }
+    }
+
+    public static String askString(SectionName section, String question) {
+        log(section, question + " (Enter text): ", false);
+        return scanner.nextLine();
     }
 
     private static String construct(SectionName section, String message) {
