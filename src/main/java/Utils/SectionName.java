@@ -2,6 +2,7 @@ package Utils;
 
 public enum SectionName {
     PROGRAM("PROGRAM", 0),
+    MEMORY("MEMORY", 1),
     ASSESSOR("ASSESSOR", 1),
     CONSTRUCTOR("CONSTRUCTOR", 1),
     COOKIE("COOKIE", 2),

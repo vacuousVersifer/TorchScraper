@@ -2,13 +2,14 @@ import Memory.DocumentManager;
 import Sections.Assessor;
 import Utils.Logger;
 import Utils.SectionName;
+import org.jdom2.JDOMException;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) throws IOException, URISyntaxException {
+    public static void main(String[] args) throws IOException, URISyntaxException, JDOMException {
         String message =
                 """
                         ╔════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
@@ -29,8 +30,7 @@ public class Main {
 
         if (askDev()) {
             // Do dev stuff
-            DocumentManager mem = new DocumentManager();
-            mem.create();
+            new DocumentManager();
         } else {
             Assessor assessor = new Assessor();
             assessor.run();
