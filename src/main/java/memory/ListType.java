@@ -1,9 +1,9 @@
-package Memory;
+package memory;
 
 public enum ListType {
-    COOKIELIST("CookieList"),
-    STAFFLIST("StaffList"),
-    STORYLIST("StoryList");
+    COOKIE_LIST("CookieList"),
+    STAFF_LIST("StaffList"),
+    STORY_LIST("StoryList");
 
     private final String type;
 

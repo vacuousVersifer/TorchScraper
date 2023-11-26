@@ -1,6 +1,6 @@
-package Memory;
+package memory.managers;
 
-import Memory.Types.Data;
+import memory.types.Data;
 import org.jdom2.Element;
 
 import java.util.ArrayList;
@@ -21,8 +21,18 @@ public class Manager<T extends Data> {
     public Element getElement() {
         Element element = new Element(title);
         for (Data data : elements) {
-            element.addContent(data.getElement());
+            Element dataElement = data.getElement();
+            dataElement.detach();
+            element.addContent(dataElement);
         }
         return element;
+    }
+
+    public ArrayList<T> getElements() {
+        return elements;
+    }
+
+    public void clearElements() {
+        elements.clear();
     }
 }

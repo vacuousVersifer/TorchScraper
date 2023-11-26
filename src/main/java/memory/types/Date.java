@@ -1,4 +1,4 @@
-package Memory.Types;
+package memory.types;
 
 import org.jdom2.Element;
 
@@ -21,13 +21,16 @@ public class Date extends Data {
         this.month = Integer.parseInt(element.getChild("month").getValue());
         this.year = Integer.parseInt(element.getChild("year").getValue());
 
-        this.element = new Element("date");
-        this.element.addContent(new Element("month").setText(String.valueOf(this.month)));
-        this.element.addContent(new Element("year").setText(String.valueOf(this.year)));
+        this.element = element;
     }
 
     @Override
     public Element getElement() {
         return element;
+    }
+
+    @Override
+    public String toString() {
+        return month + "/" + year;
     }
 }

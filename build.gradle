@@ -3,7 +3,7 @@ plugins {
 }
 
 group = "com.vacuousVersifier"
-version = "1.2.3"
+version = "1.2.4"
 
 repositories {
     mavenCentral()
@@ -17,7 +17,7 @@ dependencies {
 
 tasks.withType(Jar).configureEach {
     manifest {
-        attributes["Manifest-Version"] = "1.0"
+        attributes["Manifest-Version"] = "1.2.4"
         attributes["Main-Class"] = "Main"
     }
 }

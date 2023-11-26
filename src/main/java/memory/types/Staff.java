@@ -1,4 +1,4 @@
-package Memory.Types;
+package memory.types;
 
 import org.jdom2.Element;
 
@@ -8,24 +8,29 @@ public class Staff extends Data {
 
     private final Element element;
 
-    public Staff(int id, Name name) {
-        this.id = id;
-        this.name = name;
-
-        this.element = new Element("staff");
-        this.element.addContent(new Element("id").setText(String.valueOf(this.id)));
-        this.element.addContent(this.name.getElement());
-    }
-
     public Staff(Element element) {
         this.id = Integer.parseInt(element.getChild("id").getValue());
         this.name = new Name(element.getChild("name"));
 
+        this.element = element;
+    }
+
+    public Staff(int id, String name) {
+        this.id = id;
+        this.name = new Name(name);
+
         this.element = new Element("staff");
         this.element.addContent(new Element("id").setText(String.valueOf(this.id)));
         this.element.addContent(this.name.getElement());
     }
 
+    public Name getName() {
+        return name;
+    }
+
+    public int getId() {
+        return id;
+    }
 
     @Override
     public Element getElement() {

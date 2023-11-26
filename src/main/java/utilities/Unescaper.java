@@ -1,4 +1,4 @@
-package Utils;
+package utilities;
 
 import java.io.StringWriter;
 import java.util.HashMap;

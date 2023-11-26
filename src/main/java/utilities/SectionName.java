@@ -1,10 +1,9 @@
-package Utils;
+package utilities;
 
 public enum SectionName {
     PROGRAM("PROGRAM", 0),
     MEMORY("MEMORY", 1),
     ASSESSOR("ASSESSOR", 1),
-    CONSTRUCTOR("CONSTRUCTOR", 1),
     COOKIE("COOKIE", 2),
     STAFF("STAFF", 2),
     STAFF_SCRAPER("STAFF SCRAPER", 3),

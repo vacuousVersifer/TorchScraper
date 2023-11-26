@@ -1,8 +1,11 @@
-package Sections;
+package sections;
 
-import Utils.Logger;
-import Utils.SectionName;
-import Utils.Unescaper;
+import memory.types.Date;
+import memory.types.Staff;
+import memory.types.Story;
+import utilities.Logger;
+import utilities.SectionName;
+import utilities.Unescaper;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,27 +25,25 @@ public class StoryScraper {
     public StoryScraper() {
     }
 
-    public ArrayList<String> run(ArrayList<String> staffList, String cookies) throws URISyntaxException, IOException {
+    public ArrayList<Story> run(ArrayList<Staff> staffList, String cookies) throws URISyntaxException, IOException {
         Logger.log(SectionName.STORY_SCRAPER, "Begin");
 
         this.cookies = cookies;
 
-        ArrayList<String> storyList = new ArrayList<>();
+        ArrayList<Story> storyList = new ArrayList<>();
 
-        for (String staff : staffList) {
-            int staffID = Integer.parseInt(staff.split(":")[0]);
+        for (Staff staff : staffList) {
+            int staffID = staff.getId();
             pageNum = 2;
-            storyList.add(scrape(staffID));
+            storyList.addAll(scrape(staffID));
         }
 
         Logger.log(SectionName.STORY_SCRAPER, "Finish");
         return storyList;
     }
 
-    private String scrape(int staffID) throws URISyntaxException, IOException {
-        StringBuilder result = new StringBuilder();
-        result.append(staffID).append(";");
-
+    private ArrayList<Story> scrape(int staffID) throws URISyntaxException, IOException {
+        ArrayList<Story> staffStoryList = new ArrayList<>();
         int numberOfStories = 0;
 
         Logger.log(SectionName.STORY_SCRAPER, "Scraping Stories #" + staffID, false);
@@ -80,23 +81,23 @@ public class StoryScraper {
             String yearSep = "<div class=\"aa\">";
             int yearSepPos = split[1].indexOf(yearSep);
             int yearLength = yearSepPos + yearSep.length();
-            String year = split[1].substring(yearLength).split("<", 2)[0].substring(2, 4);
+            int year = Integer.parseInt(split[1].substring(yearLength).split("<", 2)[0].substring(2, 4));
 
             String monthSep = "<div class=\"mm\">";
             int monthSepPos = split[1].indexOf(monthSep);
             int monthLength = monthSepPos + monthSep.length();
-            String month = split[1].substring(monthLength).split("<", 2)[0];
+            int month = Integer.parseInt(split[1].substring(monthLength).split("<", 2)[0]);
 
             responseBody = responseBody.substring(postSepPos + 500);
 
             if (!Objects.equals(draft, "draft")) {
                 numberOfStories++;
-                result.append(month).append("/").append(year).append(":").append(title.replaceAll(";", ":")).append(";");
+                staffStoryList.add(new Story(staffID, title, new Date(month, year)));
             }
         }
 
         Logger.log(SectionName.SILENT, ": " + numberOfStories + " Stories found");
-        return result.toString();
+        return staffStoryList;
     }
 
     private String getFullBody(String responseBody, int staffID) throws IOException, URISyntaxException {
