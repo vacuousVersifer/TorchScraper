@@ -21,8 +21,6 @@ public class Assessor {
     }
 
     public void run() throws IOException, URISyntaxException {
-        Logger.log(SectionName.ASSESSOR, "Begin");
-
         retrieveCookies();
         if (Logger.askYesOrNo(SectionName.ASSESSOR, "Use cached staff?")) {
             if (!Logger.askYesOrNo(SectionName.ASSESSOR, "Use cached stories?")) {
@@ -35,13 +33,9 @@ public class Assessor {
 
         Counter counter = new Counter(documentManager.getStaffList(), documentManager.getStoriesList());
         counter.run();
-
-        Logger.log(SectionName.ASSESSOR, "Finish");
     }
 
     private void retrieveCookies() throws IOException {
-        Logger.log(SectionName.COOKIE, "Begin");
-
         String cookieKey_sec = null, cookieValue_sec = null;
         String cookieKey_logged_in = null, cookieValue_logged_in = null;
 
@@ -76,8 +70,6 @@ public class Assessor {
         } else {
             manualCookies();
         }
-
-        Logger.log(SectionName.COOKIE, "Finish");
     }
 
     private void manualCookies() throws IOException {
@@ -93,29 +85,21 @@ public class Assessor {
     }
 
     private void retrieveStaff() throws IOException, URISyntaxException {
-        Logger.log(SectionName.STAFF, "Begin");
-
         StaffScraper staffScraper = new StaffScraper();
         ArrayList<Staff> staffList = staffScraper.run(documentManager.getCookieList());
 
         documentManager.clearStaff();
         documentManager.addStaffList(staffList);
         documentManager.saveStaff();
-
-        Logger.log(SectionName.STAFF, "Finish");
     }
 
     private void retrieveStories() throws URISyntaxException, IOException {
-        Logger.log(SectionName.STORY, "Begin");
-
         StoryScraper storyScraper = new StoryScraper();
         ArrayList<Story> storyList = storyScraper.run(documentManager.getStaffList(), documentManager.getCookieList());
 
         documentManager.clearStories();
         documentManager.addStoryList(storyList);
         documentManager.saveStories();
-
-        Logger.log(SectionName.STORY, "Finish");
     }
 
 }

@@ -26,8 +26,6 @@ public class StoryScraper {
     }
 
     public ArrayList<Story> run(ArrayList<Staff> staffList, String cookies) throws URISyntaxException, IOException {
-        Logger.log(SectionName.STORY_SCRAPER, "Begin");
-
         this.cookies = cookies;
 
         ArrayList<Story> storyList = new ArrayList<>();
@@ -38,7 +36,6 @@ public class StoryScraper {
             storyList.addAll(scrape(staffID));
         }
 
-        Logger.log(SectionName.STORY_SCRAPER, "Finish");
         return storyList;
     }
 
@@ -46,7 +43,7 @@ public class StoryScraper {
         ArrayList<Story> staffStoryList = new ArrayList<>();
         int numberOfStories = 0;
 
-        Logger.log(SectionName.STORY_SCRAPER, "Scraping Stories #" + staffID, false);
+        Logger.log(SectionName.STORY, "Scraping Stories #" + staffID, false);
         String url = "https://shsthetorch.com/wp-admin/edit.php?post_type=post&author=" + staffID + "&paged=1";
 //
         URLConnection connection = new URI(url).toURL().openConnection();

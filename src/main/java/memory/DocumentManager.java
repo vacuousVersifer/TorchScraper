@@ -41,7 +41,7 @@ public class DocumentManager {
         Element staffList;
         Element cookieList;
         if (file.createNewFile()) {
-            Logger.log(SectionName.MEMORY, "Memory file not found");
+            Logger.log(SectionName.MEMORY, "Local memory file not found");
 
             memoryDocument = new Document();
 
@@ -58,7 +58,7 @@ public class DocumentManager {
 
             save();
         } else {
-            Logger.log(SectionName.MEMORY, "Memory file found");
+            Logger.log(SectionName.MEMORY, "Local memory file found");
 
             SAXBuilder sax = new SAXBuilder();
             sax.setProperty(XMLConstants.ACCESS_EXTERNAL_DTD, "");

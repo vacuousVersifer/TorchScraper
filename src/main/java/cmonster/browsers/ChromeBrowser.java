@@ -36,6 +36,7 @@ import java.util.stream.Stream;
  *
  * @author Ben Holland
  */
+@SuppressWarnings({"ResultOfMethodCallIgnored", "JavadocLinkAsPlainText"})
 public class ChromeBrowser extends Browser {
 
     private String chromeKeyringPassword = null;
@@ -51,7 +52,7 @@ public class ChromeBrowser extends Browser {
             File localStateFile = new File(pathLocalState);
 
             ObjectMapper objectMapper = new ObjectMapper();
-            JsonNode jsonNode = null;
+            JsonNode jsonNode;
             try {
                 jsonNode = objectMapper.readTree(localStateFile);
             } catch (IOException e) {
@@ -72,13 +73,12 @@ public class ChromeBrowser extends Browser {
     /**
      * Accesses the apple keyring to retrieve the Chrome decryption password
      *
-     * @param application
-     * @return
-     * @throws IOException
+     * @return Output from the stdInput
+     * @throws IOException If the file cannot be read
      */
-    private static String getMacKeyringPassword(String application) throws IOException {
+    private static String getMacKeyringPassword() throws IOException {
         Runtime rt = Runtime.getRuntime();
-        String[] commands = {"security", "find-generic-password", "-w", "-s", application};
+        String[] commands = {"security", "find-generic-password", "-w", "-s", "Chrome Safe Storage"};
         Process proc = rt.exec(commands);
         BufferedReader stdInput = new BufferedReader(new InputStreamReader(proc.getInputStream()));
         StringBuilder result = new StringBuilder();
@@ -120,7 +120,7 @@ public class ChromeBrowser extends Browser {
     /**
      * In some cases, people set profiles for browsers, which would creates custom cookie files
      *
-     * @param baseDir
+     * @param baseDir The user created base directory for browser profiles
      */
     private List<File> getCookieDbFiles(String baseDir) {
         File filePath = new File(baseDir);
@@ -141,6 +141,7 @@ public class ChromeBrowser extends Browser {
      * Processes all cookies in the cookie store for a given domain or all
      * domains if domainFilter is null/empty
      */
+    @SuppressWarnings("CallToPrintStackTrace")
     @Override
     protected Set<Cookie> processCookies(File cookieStore, String domainFilter) {
         HashSet<Cookie> cookies = new HashSet<>();
@@ -182,57 +183,6 @@ public class ChromeBrowser extends Browser {
         return cookies;
     }
 
-    /**
-     * Returns cookies for cookie key with given domain
-     */
-    @Override
-    public Set<Cookie> getCookiesForDomain(String name, String domain) {
-        HashSet<Cookie> cookies = new HashSet<>();
-        for (File cookieStore : getCookieStores()) {
-            cookies.addAll(getCookiesByName(cookieStore, name, domain));
-        }
-        return cookies;
-    }
-
-    private Set<Cookie> getCookiesByName(File cookieStore, String name, String domainFilter) {
-        HashSet<Cookie> cookies = new HashSet<>();
-        if (cookieStore.exists()) {
-            Connection connection = null;
-            try {
-                cookieStoreCopy.delete();
-                Files.copy(cookieStore.toPath(), cookieStoreCopy.toPath());
-                // load the sqlite-JDBC driver using the current class loader
-                Class.forName("org.sqlite.JDBC");
-                // create a database connection
-                connection = DriverManager.getConnection("jdbc:sqlite:" + cookieStoreCopy.getAbsolutePath());
-                Statement statement = connection.createStatement();
-                statement.setQueryTimeout(30); // set timeout to 30 seconds
-                ResultSet result;
-                if (domainFilter == null || domainFilter.isEmpty()) {
-                    result = statement.executeQuery(String.format("select * from cookies where name = '%s'", name));
-                } else {
-                    result = statement.executeQuery("select * from cookies where name = '" + name + "' and host_key like '%" + domainFilter + "'");
-                }
-                while (result.next()) {
-                    parseCookieFromResult(cookieStore, name, cookies, result);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                // if the error message is "out of memory",
-                // it probably means no database file is found
-            } finally {
-                try {
-                    if (connection != null) {
-                        connection.close();
-                    }
-                } catch (SQLException e) {
-                    // connection close failed
-                }
-            }
-        }
-        return cookies;
-    }
-
     private void parseCookieFromResult(File cookieStore, String name, HashSet<Cookie> cookies, ResultSet result) throws SQLException {
         byte[] encryptedBytes = result.getBytes("encrypted_value");
         String path = result.getString("path");
@@ -252,11 +202,7 @@ public class ChromeBrowser extends Browser {
 
         DecryptedCookie decryptedCookie = decrypt(encryptedCookie);
 
-        if (decryptedCookie != null) {
-            cookies.add(decryptedCookie);
-        } else {
-            cookies.add(encryptedCookie);
-        }
+        cookies.add(Objects.requireNonNullElse(decryptedCookie, encryptedCookie));
         cookieStoreCopy.delete();
     }
 
@@ -283,8 +229,7 @@ public class ChromeBrowser extends Browser {
     /**
      * Decrypts an encrypted cookie
      */
-    @Override
-    protected DecryptedCookie decrypt(EncryptedCookie encryptedCookie) {
+    private DecryptedCookie decrypt(EncryptedCookie encryptedCookie) {
         byte[] decryptedBytes = null;
 
         if (OS.isWindows()) {
@@ -302,8 +247,7 @@ public class ChromeBrowser extends Browser {
 
                 cipher.init(Cipher.DECRYPT_MODE, keySpec, gcmParameterSpec);
                 decryptedBytes = cipher.doFinal(ciphertextTag);
-            } catch (Exception e) {
-                decryptedBytes = null;
+            } catch (Exception ignored) {
             }
 
         } else if (OS.isLinux()) {
@@ -332,13 +276,12 @@ public class ChromeBrowser extends Browser {
                     encryptedBytes = Arrays.copyOfRange(encryptedBytes, 3, encryptedBytes.length);
                 }
                 decryptedBytes = cipher.doFinal(encryptedBytes);
-            } catch (Exception e) {
-                decryptedBytes = null;
+            } catch (Exception ignored) {
             }
         } else if (OS.isMac()) {
             // access the decryption password from the keyring manager
             if (chromeKeyringPassword == null) try {
-                chromeKeyringPassword = getMacKeyringPassword("Chrome Safe Storage");
+                chromeKeyringPassword = getMacKeyringPassword();
             } catch (IOException ignored) {
             }
             try {
@@ -366,8 +309,7 @@ public class ChromeBrowser extends Browser {
                     encryptedBytes = Arrays.copyOfRange(encryptedBytes, 3, encryptedBytes.length);
                 }
                 decryptedBytes = cipher.doFinal(encryptedBytes);
-            } catch (Exception e) {
-                decryptedBytes = null;
+            } catch (Exception ignored) {
             }
         }
 

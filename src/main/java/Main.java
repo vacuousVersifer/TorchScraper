@@ -27,12 +27,11 @@ public class Main {
 
         Logger.log(SectionName.SILENT, message);
 
-        Logger.log(SectionName.PROGRAM, "Begin");
+        Logger.log(SectionName.PROGRAM, "Welcome to the Torch Scraper.");
 
         Assessor assessor = new Assessor();
         assessor.run();
 
         Logger.log(SectionName.PROGRAM, "Finish");
-
     }
 }

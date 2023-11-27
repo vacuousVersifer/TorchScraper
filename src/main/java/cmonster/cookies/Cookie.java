@@ -5,26 +5,26 @@ import java.util.Date;
 
 public class Cookie {
 
-	protected String name;
+	protected final String name;
 	protected String value;
-	protected Date expires;
-	protected String path;
-	protected String domain;
-	protected boolean secure;
-	protected boolean httpOnly;
-	protected File cookieStore;
+	protected final Date expires;
+	protected final String path;
+	protected final String domain;
+	protected final boolean secure;
+	protected final boolean httpOnly;
+	protected final File cookieStore;
 
 	/**
 	 * Represents an unencrypted cookie
 	 *
-	 * @param name
-	 * @param value
-	 * @param expires
-	 * @param path
-	 * @param domain
-	 * @param secure
-	 * @param httpOnly
-	 * @param cookieStore
+	 * @param name Name or key of the cookie
+	 * @param value Value of the cookie
+	 * @param expires The day and time the cookie expires
+	 * @param path The location of the cookie
+	 * @param domain The domain the cookie is for
+	 * @param secure Is the cookie secure?
+	 * @param httpOnly Is the cookie HTTP only?
+	 * @param cookieStore Cookie's cookiestore
 	 */
 	public Cookie(String name, String value, Date expires, String path, String domain, boolean secure, boolean httpOnly, File cookieStore) {
 		this.name = name;
