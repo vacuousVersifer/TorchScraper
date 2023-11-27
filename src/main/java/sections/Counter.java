@@ -21,8 +21,6 @@ public class Counter {
     }
 
     public void run() {
-        Logger.log(SectionName.COUNTER, "Begin");
-
         for (Staff staff : staffList) {
             tally.put(staff.getId(), new HashMap<>());
         }
@@ -34,12 +32,9 @@ public class Counter {
         }
 
         printResults();
-        Logger.log(SectionName.COUNTER, "Finish");
     }
 
     private void printResults() {
-        Logger.log(SectionName.COUNTER_PRINT, "Begin");
-
         // Create Header Dates
         int[] headersMonth = new int[]{8, 9, 10, 11, 12, 1, 2, 3, 4, 5};
         int[] headersYear = new int[]{23, 23, 23, 23, 23, 24, 24, 24, 24, 24};
@@ -89,8 +84,5 @@ public class Counter {
         }
         monthRow.append(totalStories).append("\t");
         Logger.log(SectionName.SILENT, monthRow.toString());
-
-
-        Logger.log(SectionName.COUNTER_PRINT, "Finish");
     }
 }

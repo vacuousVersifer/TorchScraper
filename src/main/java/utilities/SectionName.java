@@ -5,12 +5,8 @@ public enum SectionName {
     MEMORY("MEMORY", 1),
     ASSESSOR("ASSESSOR", 1),
     COOKIE("COOKIE", 2),
-    STAFF("STAFF", 2),
-    STAFF_SCRAPER("STAFF SCRAPER", 3),
-    STORY("STORY", 2),
-    STORY_SCRAPER("STORY SCRAPER", 3),
-    COUNTER("COUNTER", 2),
-    COUNTER_PRINT("COUNTER PRINT", 3),
+    STAFF("STAFF", 3),
+    STORY("STORY", 3),
     SILENT("", 0);
 
     private final int level;

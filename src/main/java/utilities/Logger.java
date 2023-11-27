@@ -1,5 +1,9 @@
 package utilities;
 
+import cmonster.browsers.Browser;
+import cmonster.browsers.ChromeBrowser;
+import cmonster.browsers.FirefoxBrowser;
+
 import java.util.Scanner;
 
 public class Logger {
@@ -32,7 +36,7 @@ public class Logger {
     }
 
     public static int askNumber(SectionName section, String question) {
-        log(section, question + " (Enter a number): ", false);
+        log(section, question + ": ", false);
         String response = scanner.nextLine();
         try {
             return Integer.parseInt(response);
@@ -43,8 +47,22 @@ public class Logger {
     }
 
     public static String askString(SectionName section, String question) {
-        log(section, question + " (Enter text): ", false);
+        log(section, question + ": ", false);
         return scanner.nextLine();
+    }
+
+    public static Browser askBrowser(SectionName section, String question) {
+        log(section, question + " (Chrome/Firefox/Manual): ", false);
+        String response = scanner.nextLine();
+        return switch (response) {
+            case "Chrome" -> new ChromeBrowser();
+            case "Firefox" -> new FirefoxBrowser();
+            case "Manual" -> null;
+            default -> {
+                Logger.log(SectionName.COOKIE, "Invalid response. Let's try again!");
+                yield askBrowser(section, question);
+            }
+        };
     }
 
     private static String construct(SectionName section, String message) {
@@ -66,7 +84,7 @@ public class Logger {
         builder.append("[");
         builder.append(sectionName);
 
-        int spaceSize = 16 - sectionSize - sectionLevel;
+        int spaceSize = 8 - sectionSize - sectionLevel;
         builder.append(" ".repeat(Math.max(0, spaceSize)));
 
         builder.append("] ");

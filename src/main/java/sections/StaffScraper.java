@@ -17,10 +17,8 @@ public class StaffScraper {
     private String cookies;
 
     public ArrayList<Staff> run(String cookies) throws IOException, URISyntaxException {
-        Logger.log(SectionName.STAFF_SCRAPER, "Begin");
-
-        int startID = Logger.askNumber(SectionName.STAFF_SCRAPER, "Enter starting staff ID (117)");
-        int endID = Logger.askNumber(SectionName.STAFF_SCRAPER, "Enter ending staff ID (159)");
+        int startID = Logger.askNumber(SectionName.STAFF, "Enter starting staff ID (117)");
+        int endID = Logger.askNumber(SectionName.STAFF, "Enter ending staff ID (159)");
 
         this.cookies = cookies;
 
@@ -29,12 +27,11 @@ public class StaffScraper {
             if (!(staff == null)) staffList.add(staff);
         }
 
-        Logger.log(SectionName.STAFF_SCRAPER, "Finish");
         return staffList;
     }
 
     private Staff scrape(int staffID) throws IOException, URISyntaxException {
-        Logger.log(SectionName.STAFF_SCRAPER, "Scraping Staff #" + staffID, false);
+        Logger.log(SectionName.STAFF, "Scraping Staff #" + staffID, false);
         String baseURL = "https://shsthetorch.com/wp-admin/edit.php";
         String query = "author=" + URLEncoder.encode(String.valueOf(staffID), UTF_8);
         URL url = new URI(baseURL + "?" + query).toURL();
