@@ -1,5 +1,7 @@
 package utilities;
 
+import cmonster.browsers.*;
+
 import java.util.Scanner;
 
 public class Logger {
@@ -32,7 +34,7 @@ public class Logger {
     }
 
     public static int askNumber(SectionName section, String question) {
-        log(section, question + " (Enter a number): ", false);
+        log(section, question + ": ", false);
         String response = scanner.nextLine();
         try {
             return Integer.parseInt(response);
@@ -43,8 +45,24 @@ public class Logger {
     }
 
     public static String askString(SectionName section, String question) {
-        log(section, question + " (Enter text): ", false);
+        log(section, question + ": ", false);
         return scanner.nextLine();
+    }
+
+    public static Browser askBrowser(SectionName section, String question) {
+        log(section, question + " (Chrome/Firefox/InternetExplorer/Safari/Manual): ", false);
+        String response = scanner.nextLine();
+        return switch (response) {
+            case "Chrome" -> new ChromeBrowser();
+            case "Firefox" -> new FirefoxBrowser();
+            case "InternetExplorer" -> new InternetExplorerBrowser();
+            case "Safari" -> new SafariBrowser();
+            case "Manual" -> null;
+            default -> {
+                Logger.log(SectionName.COOKIE, "Invalid response. Let's try again!");
+                yield askBrowser(section, question);
+            }
+        };
     }
 
     private static String construct(SectionName section, String message) {

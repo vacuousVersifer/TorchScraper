@@ -15,6 +15,7 @@
   - [v1.2.2] Add Memory Creation and Recreation (25 Nov 23)
   - [v1.2.3] Fix Title Card (25 Nov 23)
   - [v1.2.4] Integrated Memory System (26 Nov 23)
+- [v1.3.0] Integrated CookieMonster (26 Nov 23)
 
 ## v2.0.0 *The Usable Edition*
 

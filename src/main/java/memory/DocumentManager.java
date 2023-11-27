@@ -102,10 +102,6 @@ public class DocumentManager {
         return cookieManager.getCookie();
     }
 
-    public String getCookieExpirationDate() {
-        return cookieManager.getCookieExpirationDate();
-    }
-
     public void clearCookies() throws IOException {
         cookieManager.clearElements();
         save();

@@ -18,8 +18,4 @@ public class CookieManager extends Manager<Cookie> {
         }
         return builder.toString();
     }
-
-    public String getCookieExpirationDate() {
-        return getElements().get(0).getExpirationDate();
-    }
 }

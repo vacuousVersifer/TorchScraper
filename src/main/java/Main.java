@@ -33,5 +33,6 @@ public class Main {
         assessor.run();
 
         Logger.log(SectionName.PROGRAM, "Finish");
+
     }
 }
